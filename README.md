@@ -82,11 +82,9 @@ marketing-operations-portal/
 │
 ├── index.html
 │
-├── css/
-│   └── style.css
+├──  style.css
 │
-├── js/
-│   └── app.js
+├──  app.js
 │
 └── README.md
 ```
