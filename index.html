@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketing Operations Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✦</span><span>MarketingOps</span></div>
+      <nav>
+        <a href="#" class="nav-link active" data-section="dashboard">Dashboard</a>
+        <a href="#" class="nav-link" data-section="campaigns">Campaigns</a>
+        <a href="#" class="nav-link" data-section="content">Content Authoring</a>
+        <a href="#" class="nav-link" data-section="analytics">Analytics</a>
+      </nav>
+      <div class="sidebar-footer">
+        <small>Web Developer Project</small>
+        <span>Accenture-role focused</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <div>
+          <h1 id="pageTitle">Marketing Operations Dashboard</h1>
+          <p>Campaigns, content and performance in one place.</p>
+        </div>
+        <div class="profile">PO</div>
+      </header>
+
+      <section id="dashboard" class="page-section active-section">
+        <div class="hero">
+          <div>
+            <span class="eyebrow">MARKETING OPERATIONS</span>
+            <h2>Improve efficiency. Deliver measurable results.</h2>
+            <p>Manage campaigns, publish content and monitor marketing performance.</p>
+            <button class="primary-btn" data-go="campaigns">+ Create Campaign</button>
+          </div>
+          <div class="hero-icon">📈</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><span>Total Campaigns</span><strong id="totalCampaigns">0</strong><small>All campaigns</small></div>
+          <div class="stat-card"><span>Active Campaigns</span><strong id="activeCampaigns">0</strong><small>Currently running</small></div>
+          <div class="stat-card"><span>Total Budget</span><strong id="totalBudget">₹0</strong><small>Allocated budget</small></div>
+          <div class="stat-card"><span>Avg. Conversion</span><strong id="avgConversion">0%</strong><small>Campaign average</small></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head"><h3>Recent Campaigns</h3><button class="text-btn" data-go="campaigns">View all</button></div>
+            <div id="recentCampaigns"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Content Status</h3></div>
+            <div class="progress-row"><span>Published</span><strong id="publishedCount">0</strong></div>
+            <div class="progress"><i id="publishedBar"></i></div>
+            <div class="progress-row"><span>Draft</span><strong id="draftCount">0</strong></div>
+            <div class="progress"><i id="draftBar"></i></div>
+            <div class="progress-row"><span>Review</span><strong id="reviewCount">0</strong></div>
+            <div class="progress"><i id="reviewBar"></i></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="campaigns" class="page-section">
+        <div class="section-heading">
+          <div><h2>Campaign Management</h2><p>Create, search and monitor marketing campaigns.</p></div>
+          <button id="newCampaignBtn" class="primary-btn">+ New Campaign</button>
+        </div>
+        <div class="toolbar">
+          <input id="campaignSearch" type="search" placeholder="Search campaigns...">
+          <select id="statusFilter">
+            <option value="all">All statuses</option>
+            <option value="Active">Active</option>
+            <option value="Draft">Draft</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div class="panel table-panel">
+          <table>
+            <thead><tr><th>Campaign</th><th>Audience</th><th>Dates</th><th>Budget</th><th>Status</th><th>Conversion</th><th>Action</th></tr></thead>
+            <tbody id="campaignTable"></tbody>
+          </table>
+          <div id="emptyCampaigns" class="empty hidden">No campaigns found.</div>
+        </div>
+      </section>
+
+      <section id="content" class="page-section">
+        <div class="section-heading">
+          <div><h2>Content Authoring</h2><p>Create and manage website content without editing source code.</p></div>
+          <button id="newContentBtn" class="primary-btn">+ New Content</button>
+        </div>
+        <div class="toolbar">
+          <input id="contentSearch" type="search" placeholder="Search content...">
+          <select id="contentFilter">
+            <option value="all">All statuses</option>
+            <option value="Published">Published</option>
+            <option value="Draft">Draft</option>
+            <option value="Review">Review</option>
+          </select>
+        </div>
+        <div id="contentGrid" class="content-grid"></div>
+        <div id="emptyContent" class="empty hidden">No content found.</div>
+      </section>
+
+      <section id="analytics" class="page-section">
+        <div class="section-heading">
+          <div><h2>Marketing Analytics</h2><p>Use campaign data to understand performance.</p></div>
+        </div>
+        <div class="panel">
+          <h3>Campaign Performance</h3>
+          <div id="analyticsChart" class="bar-chart"></div>
+        </div>
+        <div class="grid-2 analytics-bottom">
+          <div class="panel">
+            <h3>Performance Summary</h3>
+            <div id="summaryList"></div>
+          </div>
+          <div class="panel">
+            <h3>Technology Skills Demonstrated</h3>
+            <ul class="skills">
+              <li>HTML5 semantic structure</li>
+              <li>CSS responsive design</li>
+              <li>JavaScript DOM manipulation</li>
+              <li>jQuery events and filtering</li>
+              <li>Form validation</li>
+              <li>LocalStorage data persistence</li>
+              <li>Marketing dashboard and analytics</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="campaignModal" class="modal">
+    <div class="modal-box">
+      <button class="close-modal">×</button>
+      <h2>Create Campaign</h2>
+      <form id="campaignForm">
+        <label>Campaign Name<input id="campaignName" required maxlength="60"></label>
+        <label>Target Audience<input id="campaignAudience" required maxlength="60"></label>
+        <div class="form-grid">
+          <label>Start Date<input id="campaignStart" type="date" required></label>
+          <label>End Date<input id="campaignEnd" type="date" required></label>
+        </div>
+        <div class="form-grid">
+          <label>Budget (₹)<input id="campaignBudget" type="number" min="0" required></label>
+          <label>Conversion (%)<input id="campaignConversion" type="number" min="0" max="100" step="0.1" value="0"></label>
+        </div>
+        <label>Status<select id="campaignStatus"><option>Draft</option><option>Active</option><option>Completed</option></select></label>
+        <p id="campaignError" class="form-error"></p>
+        <button class="primary-btn full" type="submit">Save Campaign</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="contentModal" class="modal">
+    <div class="modal-box">
+      <button class="close-modal">×</button>
+      <h2>Create Website Content</h2>
+      <form id="contentForm">
+        <label>Page Title<input id="contentTitle" required maxlength="80"></label>
+        <label>Category<input id="contentCategory" required maxlength="40"></label>
+        <label>Content Description<textarea id="contentDescription" rows="5" required maxlength="300"></textarea></label>
+        <label>Status<select id="contentStatus"><option>Draft</option><option>Review</option><option>Published</option></select></label>
+        <p id="contentError" class="form-error"></p>
+        <button class="primary-btn full" type="submit">Save Content</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
